@@ -71,6 +71,8 @@
         print(post.dict()) # this will convert pydantic model to dictionary
         return {"data": post}
     ```
+10. CRUD - CREATE, READ, UPDATE, DELETE
+
 
 Link references:
 - [HTTP requests methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
