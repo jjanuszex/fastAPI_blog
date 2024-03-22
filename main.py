@@ -13,6 +13,10 @@ class Post(BaseModel):
     published: bool = True
     rating: Optional[int] = None
 
+my_posts = [{"title": "Post 1", "content": "This is the content of post 1", "published": True, "rating": 5},
+            {"title": "Post 2", "content": "This is the content of post 2", "published": False, "rating": 4},
+            {"title": "Post 3", "content": "This is the content of post 3", "published": True, "rating": 3}]
+
 
 @app.get("/")
 async def root():
@@ -20,10 +24,10 @@ async def root():
 
 @app.get("/posts")
 def get_posts():
-    return {"data": "This is your posts"}
+    return {"data": my_posts}
 
-@app.post("/createposts")
+@app.post("/posts ")
 def create_posts(new_post: Post):
     print(new_post) # this will print the pydantic model
     print(new_post.dict()) # this will conver pydantic model to dictionary
-    return {"data": new_post.dict()}
+    return {"data": new_post}
