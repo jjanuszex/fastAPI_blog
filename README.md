@@ -71,7 +71,17 @@
         print(post.dict()) # this will convert pydantic model to dictionary
         return {"data": post}
     ```
-10. CRUD - CREATE, READ, UPDATE, DELETE
+10. CRUD - CREATE, READ, UPDATE, DELETE, 
+    put i patch różnią sie tym ze w put musimy podac wszystkie pola które chcemy zmienić a w patch tylko te co chemy zmienić
+
+11. We can keep our posts in array, (will change it later)
+
+    ```python
+    my_posts = [{"title": "Post 1", "content": "This is the content of post 1", "published": True, "rating": 5},
+            {"title": "Post 2", "content": "This is the content of post 2", "published": False, "rating": 4},
+            {"title": "Post 3", "content": "This is the content of post 3", "published": True, "rating": 3}]
+    ```
+
 
 
 Link references:
