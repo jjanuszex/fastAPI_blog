@@ -91,13 +91,24 @@
         post = find_post(int(id))
         return {"post_detail": post}
     ```
+13. Status code
 
+    we can set status code using exception, we have to `import from fastapi, responses, status, HTTPException` additionally, in code we have to raise exception,  
+
+    ```python
+    @app.get("/posts/{id}")
+    def get_post(id: int, response: responses.Response):
+        post = find_post(int(id))
+        if not post:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
+        return {"post_detail": post}
 
 
 
 Link references:
 - [HTTP requests methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
 - [Pydantic Documentation](https://docs.pydantic.dev/latest/)
+- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 
 Tools:
 - Postman
