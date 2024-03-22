@@ -48,10 +48,33 @@ def create_posts(payload: dict = Body(...)):
     return {"new_post": f"title: {payload['title']}, content: {payload['content']}"}
 ```
 
+9. Pydantic - data validation library for Python.
+
+we need to first import pydantic
+below code created model fol model and validate it
+I also used method to convert pydantic to dict in print function
+```python
+# this validates if the user provides the correct data type
+class Post(BaseModel):
+    title: str
+    content: str
+    published: bool = True
+    rating: Optional[int] = None
+
+@app.post("/createposts")
+def create_posts(post: Post):
+    print(post) # this will print the pydantic model
+    print(post.dict()) # this will conver pydantic model to dictionary
+    return {"data": post}
+```
 
 
-* Link referances
+Link referances
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods # HTTP requests methods
+- https://docs.pydantic.dev/latest/
 
-* Tools 
+
+
+Tools 
 - Postman
+- pydantic
