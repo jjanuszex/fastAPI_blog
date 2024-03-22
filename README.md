@@ -14,7 +14,7 @@ pip3.12 install "fastapi[all]"
 
 W Twoim fragmencie kodu, @app.get("/") definiuje operację ścieżki. Oznacza to, że gdy użytkownik odwiedzi adres URL Twojej aplikacji z dodatkowym "/", i wyśle żądanie GET, funkcja root() zostanie wywołana.
 
-```
+```python
 @app.get("/")  # Definicja operacji ścieżki
 async def root():  # Funkcja do wywołania, gdy operacja ścieżki jest wywoływana
     return {"message": "Hello World"}  # Zwraca słownik, który FastAPI automatycznie przekształca na JSON
@@ -33,3 +33,25 @@ async def root():  # Funkcja, która jest dekorowana
 ```
 
 Dekoratory są potężnym narzędziem w Pythonie, które pozwala na modyfikowanie i rozszerzanie zachowania funkcji i klas w łatwy i czytelny sposób.
+
+
+5. Install Postman to test paths
+6. read about HTTP requests methods
+
+7. Extract data provided in body in postman
+ Body(...) extracts all fields from body -> convert to python dict and store in variable
+the we can terutn values from dict    
+
+```python
+@app.post("/create_posts")
+def create_posts(payload: dict = Body(...)):
+    return {"new_post": f"title: {payload['title']}, content: {payload['content']}"}
+```
+
+
+
+* Link referances
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods # HTTP requests methods
+
+* Tools 
+- Postman
