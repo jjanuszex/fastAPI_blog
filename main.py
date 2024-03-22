@@ -18,6 +18,13 @@ my_posts = [{"title": "Post 1", "content": "This is the content of post 1", "pub
             {"title": "Post 2", "content": "This is the content of post 2", "published": False, "id": 2},
             {"title": "Post 3", "content": "This is the content of post 3", "published": True, "id": 3}]
 
+def find_post(id):
+    for post in my_posts:
+        if post["id"] == id:
+            return post
+    return None
+
+
 
 @app.get("/")
 async def root():
@@ -33,3 +40,8 @@ def create_posts(post: Post):
     post_dict["id"] = randrange(1, 100000)
     my_posts.append(post.model_dump())
     return {"data": post_dict}
+
+@app.get("/posts/{id}")
+def get_post(id: int):
+    post = find_post(int(id))
+    return {"post_detail": post}

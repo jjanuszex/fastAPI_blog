@@ -81,6 +81,17 @@
             {"title": "Post 2", "content": "This is the content of post 2", "published": False, "rating": 4},
             {"title": "Post 3", "content": "This is the content of post 3", "published": True, "rating": 3}]
     ```
+12. Creating one post
+
+    get_post, która przyjmuje jeden argument id o typie int i to waliduje, jak damy jakiegos stringa to fastAPI zwróci nam błąd z informacja zamiast internal error server
+
+    ```python
+    @app.get("/posts/{id}")
+    def get_post(id: int):
+        post = find_post(int(id))
+        return {"post_detail": post}
+    ```
+
 
 
 
