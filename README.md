@@ -125,6 +125,20 @@
         my_posts[index] = post_dict
         return{"message": post_dict}
     ```
+15. Install postgress on local machine and play with it (Create DB, create tables, add/remove items etc)
+
+    Some Queryies I playes with
+    ```sql
+    select id AS products_id from products;
+    select id AS products_id, price from products WHERE price >= 50;
+    select * from products WHERE inventory != 0 AND price > 20;
+    select * from products WHERE id IN (1,2,3);
+    SELECT * FROM products WHERE name LIKE 'tv%';
+    SELECT * FROM products WHERE name LIKE '%e';
+    SELECT * FROM products WHERE name NOT LIKE '%e%';
+    select id AS products_id from products ORDER BY price DESC;
+    SELECT * from products ORDER BY id LIMIT 5 OFFSET 2;
+    ```
 
 
 
