@@ -103,6 +103,28 @@
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
         return {"post_detail": post}
 
+14. Update post
+
+    - Deklaruje funkcję update_post z parametrami id (typu int), post (typu Post) i response (typu responses.Response).
+    - Wywołuje funkcję find_index_post(id) w celu znalezienia indeksu posta o podanym identyfikatorze.
+    - Jeśli indeks jest równy None, czyli post nie został znaleziony, podnosi wyjątek HTTPException z kodem statusu 404 i komunikatem "Post not found".
+    - Tworzy słownik post_dict na podstawie modelu post i przypisuje mu identyfikator id.
+    - Aktualizuje post o podanym indeksie w liście my_posts za pomocą słownika post_dict.
+    - Zwraca odpowiedź JSON zawierającą wiadomość "message" i zaktualizowany post.
+  
+    Warto zauważyć, że ten kod korzysta z wcześniej zdefiniowanych klas i funkcji, takich jak Post
+
+    ```python
+    @app.put("/posts/{id}")
+    def update_post(id: int, post: Post, response: responses.Response):
+        index = find_index_post(id)
+        if index == None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
+        post_dict = post.model_dump()
+        post_dict["id"] = id
+        my_posts[index] = post_dict
+        return{"message": post_dict}
+    ```
 
 
 
