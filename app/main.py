@@ -10,7 +10,7 @@ from . import models
 from .database import engine, get_db
 from sqlalchemy.orm import Session
 
-# to tworzy tabele w bazie danych
+#  this created table in the database
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -36,9 +36,7 @@ while True:
         print("Error while connecting to PostgreSQL", error)
         time.sleep(5)
 
-@app.get("/sqlalchemy")
-def test_posts(db: Session = Depends(get_db)):
-    return {"message": "Hello SQLAlchemy"}
+
 
 # def find_post(id):
 #     for post in my_posts:
@@ -52,21 +50,20 @@ def test_posts(db: Session = Depends(get_db)):
 #             return i
 
 @app.get("/posts")
-def get_posts():
-    cursor.execute("""SELECT * FROM posts""")
-    posts = cursor.fetchall()
-    return {"data": posts}
+def get_posts(db: Session = Depends(get_db)):
+    post = db.query(models.Post).all()
+    return {"message": post}
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
-def create_posts(post: Post):
-    cursor.execute("""INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) RETURNING *""",
-                    (post.title, post.content, post.published))
-    new_post = cursor.fetchone()
-    conn.commit()
+def create_posts(post: Post, db: Session = Depends(get_db)):
+    new_post = models.Post(**post.model_dump())
+    db.add(new_post)
+    db.commit()
+    db.refresh(new_post)
     return {"data": new_post}
 
 @app.get("/posts/{id}")
-def get_post(id: int, response: responses.Response):
+def get_post(id: int, response: responses.Response, db: Session = Depends(get_db)):
     cursor.execute("""SELECT * FROM posts WHERE id = %s""", str((id),))
     post = cursor.fetchone()
     if not post:

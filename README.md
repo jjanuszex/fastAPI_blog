@@ -181,6 +181,38 @@
     return {"message": "Hello SQLAlchemy"} 
     ```
 
+18. Using python code and ORM model instead of sql query
+
+    below is the code and docs for create post
+
+    This code snippet is a route handler for a POST request to the "/posts" endpoint in a FastAPI application. It's responsible for creating a new post in the database. Let's break it down:
+
+    @app.post("/posts", status_code=status.HTTP_201_CREATED): This is a decorator that tells FastAPI to call the following function whenever a POST request is made to the "/posts" endpoint. The status_code=status.HTTP_201_CREATED part specifies that the HTTP status code for the response should be 201 (Created) if the request is successful.
+
+    def create_posts(post: Post, db: Session = Depends(get_db)):: This is the function that FastAPI will call when the "/posts" endpoint is hit. It takes two arguments: post, which is an instance of the Post Pydantic model that FastAPI automatically creates from the JSON in the request body, and db, which is an instance of Session from SQLAlchemy. The Depends(get_db) part is a dependency that tells FastAPI to call the get_db function and pass the result to create_posts as the db argument.
+
+    new_post = models.Post(**post.model_dump()): This line creates a new instance of the Post SQLAlchemy model using the data from the post Pydantic model. The **post.model_dump() part is using the model_dump method of the Pydantic model to convert it into a dictionary that can be passed to the SQLAlchemy model.
+
+    db.add(new_post): This line adds the new Post instance to the current database session.
+
+    db.commit(): This line commits the current transaction, which will cause the new post to be stored in the database.
+
+    db.refresh(new_post): This line refreshes the new_post instance with the current state in the database, which will include any default values or auto-generated values (like an auto-incrementing ID) that were set by the database.
+
+    return {"data": new_post}: This line returns a JSON response that includes the new post. FastAPI will automatically convert the Post SQLAlchemy model into JSON using the Pydantic model.
+
+    ```python
+    @app.post("/posts", status_code=status.HTTP_201_CREATED)
+    def create_posts(post: Post, db: Session = Depends(get_db)):
+        new_post = models.Post(**post.model_dump())
+        db.add(new_post)
+        db.commit()
+        db.refresh(new_post)
+        return {"data": new_post}
+    ```
+
+
+
 Link references:
 - [HTTP requests methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
 - [Pydantic Documentation](https://docs.pydantic.dev/latest/)
