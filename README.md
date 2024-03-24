@@ -174,3 +174,8 @@ Tools:
 - Pydantic
 - psycopg2 - connection between postgress and fastapi
 
+Definitions:
+- CRUD
+- Pydantic
+- ORM - Object Reliational Mapper - sits between database and us 
+- DBMS - sits between app and database

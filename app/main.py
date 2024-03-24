@@ -16,7 +16,6 @@ class Post(BaseModel):
     title: str
     content: str
     published: bool = True
-    rating: Optional[int] = None
 
 while True:
     try:
@@ -50,43 +49,44 @@ def find_index_post(id):
         if p['id'] == id:
             return i
 
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
 @app.get("/posts")
 def get_posts():
-    return {"data": my_posts}
+    cursor.execute("""SELECT * FROM posts""")
+    posts = cursor.fetchall()
+    return {"data": posts}
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
 def create_posts(post: Post):
-    post_dict = post.model_dump()
-    post_dict["id"] = randrange(1,   100000)
-    my_posts.append(post.model_dump())
-    return {"data": post_dict}
+    cursor.execute("""INSERT INTO posts (title, content, published) VALUES (%s, %s, %s) RETURNING *""",
+                    (post.title, post.content, post.published))
+    new_post = cursor.fetchone()
+    conn.commit()
+    return {"data": new_post}
 
 @app.get("/posts/{id}")
 def get_post(id: int, response: responses.Response):
-    post = find_post(int(id))
+    cursor.execute("""SELECT * FROM posts WHERE id = %s""", str((id),))
+    post = cursor.fetchone()
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
     return {"post_detail": post}
 
 @app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(id: int):
-    index = find_index_post(id)
-    if index == None:
+
+    cursor.execute("""DELETE FROM posts WHERE id = %s returning *""", str((id),))
+    deleted_post = cursor.fetchone()
+    conn.commit()
+    if deleted_post == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
-    my_posts.pop(index)
     return responses.Response(status_code=status.HTTP_204_NO_CONTENT)
 
 @app.put("/posts/{id}")
 def update_post(id: int, post: Post, response: responses.Response):
-    index = find_index_post(id)
-    if index == None:
+    cursor.execute("""UPDATE posts SET title = %s, content = %s, published = %s WHERE id = %s returning *""",
+                   (post.title, post.content, post.published, id))
+    updated_post = cursor.fetchone()
+    conn.commit()
+    if updated_post == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
-    post_dict = post.model_dump()
-    post_dict["id"] = id
-    my_posts[index] = post_dict
-    return{"message": post_dict}
+    return{"message": updated_post}
