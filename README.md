@@ -192,6 +192,7 @@ Tools:
 - Pydantic
 - psycopg2 - connection between postgress and fastapi
 - sqlalchemy - python ORM
+- alembic - not used in this project, for migration in databases
 
 Definitions:
 - CRUD
