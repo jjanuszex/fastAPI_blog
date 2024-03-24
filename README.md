@@ -138,17 +138,39 @@
     SELECT * FROM products WHERE name NOT LIKE '%e%';
     select id AS products_id from products ORDER BY price DESC;
     SELECT * from products ORDER BY id LIMIT 5 OFFSET 2;
+    INSERT INTO products (name, price, inventory) VALUES ('something', 4, 100) returning *;
+    DELETE FROM products WHERE id = 9 returning *;
+    UPDATE products SET name = 'Laptop', price = 555 WHERE id = 2;
+    UPDATE products SET is_sale = true WHERE id > 2 returning *;
     ```
+16. Connect fastapi to postgress using psycopg2
 
+    we can use this doc as a reference how to do it https://www.psycopg.org/docs/usage.html
+    Poniższy kod:
+    Ten kod łączy się z lokalną bazą danych PostgreSQL o nazwie "fastapi" przy użyciu użytkownika "postgres" i hasła "postgres". Tworzy również kursor z fabryką kursorów RealDictCursor, który zwraca wyniki zapytań jako słowniki. Jeśli połączenie jest udane, wyświetla komunikat "Connected to the database!!!". W przypadku wystąpienia błędu podczas połączenia, wyświetla komunikat "Error while connecting to PostgreSQL" wraz z informacją o błędzie.
 
-
+    ```python
+    try:
+        conn = psycopg2.connect(
+            host="localhost",
+            database="fastapi",
+            user="postgres",
+            password="postgres",
+            cursor_factory=RealDictCursor)
+        cursor = conn.cursor()
+        print("Connected to the database!!!")
+    except (Exception, psycopg2.Error) as error:
+        print("Error while connecting to PostgreSQL", error)
+    ```
 
 Link references:
 - [HTTP requests methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
 - [Pydantic Documentation](https://docs.pydantic.dev/latest/)
 - [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+- [psycopg2](https://pypi.org/project/psycopg2/)
 
 Tools:
 - Postman
 - Pydantic
+- psycopg2 - connection between postgress and fastapi
 
