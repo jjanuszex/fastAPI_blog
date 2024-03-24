@@ -162,6 +162,24 @@
     except (Exception, psycopg2.Error) as error:
         print("Error while connecting to PostgreSQL", error)
     ```
+17. ORM - zamiast pisania SQL zapytan można uzyć jezyka python
+    I will ise Sqlalchemy - one of most populatr python ORM
+
+    SQL Alchemy jaki stworzyc tabele, polaczenie do bazy z fastapi
+    1. Stworzenie pliku database.py z informacjami o bazie
+    2.  stworzenie pliku models.py gdzie jest informacja o tabelach
+    3.  połączenie do bazy w samym pliku main.py (import modułów, zdefiniowanie funkcji get_db która obsóługuje połaczenie)
+    4.  Refaktoryzacja kodu
+
+    ```python
+    # to tworzy tabele w bazie danych
+    models.Base.metadata.create_all(bind=engine)
+
+    # dzieki temu mozemy robic query na bazie
+    @app.get("/sqlalchemy")
+    def test_posts(db: Session = Depends(get_db)):
+    return {"message": "Hello SQLAlchemy"} 
+    ```
 
 Link references:
 - [HTTP requests methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
@@ -173,6 +191,7 @@ Tools:
 - Postman
 - Pydantic
 - psycopg2 - connection between postgress and fastapi
+- sqlalchemy - python ORM
 
 Definitions:
 - CRUD

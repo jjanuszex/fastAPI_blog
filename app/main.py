@@ -1,4 +1,4 @@
-from fastapi import FastAPI, responses, status, HTTPException
+from fastapi import FastAPI, responses, status, HTTPException, Depends
 from fastapi import Body
 from pydantic import BaseModel
 from typing import Optional
@@ -6,10 +6,14 @@ from random import randrange
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
+from . import models
+from .database import engine, get_db
+from sqlalchemy.orm import Session
 
+# to tworzy tabele w bazie danych
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
 
 # this validates if the user provides the correct data type
 class Post(BaseModel):
@@ -32,22 +36,20 @@ while True:
         print("Error while connecting to PostgreSQL", error)
         time.sleep(5)
 
+@app.get("/sqlalchemy")
+def test_posts(db: Session = Depends(get_db)):
+    return {"message": "Hello SQLAlchemy"}
 
+# def find_post(id):
+#     for post in my_posts:
+#         if post["id"] == id:
+#             return post
+#     return None
 
-my_posts = [{"title": "Post 1", "content": "This is the content of post 1", "published": True, "id": 1},
-            {"title": "Post 2", "content": "This is the content of post 2", "published": False, "id": 2},
-            {"title": "Post 3", "content": "This is the content of post 3", "published": True, "id": 3}]
-
-def find_post(id):
-    for post in my_posts:
-        if post["id"] == id:
-            return post
-    return None
-
-def find_index_post(id):
-    for i, p in enumerate(my_posts):
-        if p['id'] == id:
-            return i
+# def find_index_post(id):
+#     for i, p in enumerate(my_posts):
+#         if p['id'] == id:
+#             return i
 
 @app.get("/posts")
 def get_posts():
