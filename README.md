@@ -210,8 +210,14 @@
         db.refresh(new_post)
         return {"data": new_post}
     ```
+19. Diffrence between Pydantic and ORM Models
 
+    - Schema/pydantic models defines the structure of a request & response
+    This ensure that when a user wants create a post the request will only go through if
+    it has a title and content in the body (in our app)
 
+    - sqlalchemy models - responsible for defining the columns of our posts table 
+    within postgress, is used to query, create, delete and update entries within DB
 
 Link references:
 - [HTTP requests methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
@@ -219,6 +225,12 @@ Link references:
 - [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 - [psycopg2](https://pypi.org/project/psycopg2/)
 
+20. Create Response Model, I create new class and added response model to paths
+
+    ```python
+    response_model=schemas.Post
+    ```
+    
 Tools:
 - Postman
 - Pydantic
