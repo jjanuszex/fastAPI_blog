@@ -254,7 +254,7 @@ Link references:
     2. Crete new function to hash passwords
     3.  Add all logic
     ```
-
+25. Create Token, it is pretty complex
 
 Tools:
 - Postman
