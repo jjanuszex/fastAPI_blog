@@ -230,6 +230,18 @@ Link references:
     ```python
     response_model=schemas.Post
     ```
+
+21. Create User logic - table, schema, reponse etc
+22. Hash password
+    1. install library bcrypt
+    2. provide pwd_context in main file - we have to add it to tell which algorythm will be used
+
+    ``python
+    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+    hashed_password = pwd_context.hash(user.password)
+    user.password = hashed_password
+    ```
+    I moved logic it to new file utils.py
     
 Tools:
 - Postman
