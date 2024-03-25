@@ -236,7 +236,7 @@ Link references:
     1. install library bcrypt
     2. provide pwd_context in main file - we have to add it to tell which algorythm will be used
 
-    ``python
+    ```python
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     hashed_password = pwd_context.hash(user.password)
     user.password = hashed_password
