@@ -242,13 +242,28 @@ Link references:
     user.password = hashed_password
     ```
     I moved logic it to new file utils.py
+
+23. FastApi Routers, tags
+24. JWT Token Authentication
+
+    JWT składa się z trzech części: nagłówka, ładunku i podpisu. Nagłówek zwykle składa się z dwóch części: typu tokenu, który jest JWT, i algorytmu podpisu, takiego jak HMAC SHA256 lub RSA. Ładunek, druga część tokenu, to miejsce, w którym przechowywane są rzeczywiste dane JWT. Trzecia część tokenu to podpis, który jest używany do weryfikacji, że nadawca tokenu jest tym, za kogo się podaje, i do zapewnienia, że wiadomość nie została zmieniona w drodze.
     
+    Login process
+    ```
+    1. Create new route: login
+    2. Crete new function to hash passwords
+    3.  Add all logic
+    ```
+
+
 Tools:
 - Postman
 - Pydantic
 - psycopg2 - connection between postgress and fastapi
 - sqlalchemy - python ORM
 - alembic - not used in this project, for migration in databases
+- JWT Token
+
 
 Definitions:
 - CRUD
