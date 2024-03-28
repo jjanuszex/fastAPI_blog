@@ -1,7 +1,7 @@
 #in this file we define the database models
 
 from .database import Base
-from sqlalchemy import Column, Integer, String, Boolean, text
+from sqlalchemy import Column, Integer, String, Boolean, text, ForeignKey
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 
@@ -17,6 +17,8 @@ class Post(Base):
     content = Column(String, nullable=False)
     published = Column(Boolean, server_default='TRUE', nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text('now()'), nullable=False)
+    owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False,)
+    
 
 
 class User(Base):
