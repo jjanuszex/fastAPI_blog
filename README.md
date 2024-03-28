@@ -255,6 +255,11 @@ Link references:
     3.  Add all logic
     ```
 25. Create Token, it is pretty complex
+26. All auth code
+27. Add foreign key, create relation between two tables, create column owner_id in post
+
+
+
 
 Tools:
 - Postman
@@ -270,3 +275,4 @@ Definitions:
 - Pydantic
 - ORM - Object Reliational Mapper - sits between database and us 
 - DBMS - sits between app and database
+
