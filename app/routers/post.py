@@ -27,7 +27,7 @@ def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db),
 
 @router.get("/{id}")
 def get_post(id: int, response: responses.Response, db: Session = Depends(get_db),
-             ucurrent_user: int = Depends(oauth2.get_current_user)):
+             ucurrent_user: int = Depends(oauth2.get_current_user, )):
     post = db.query(models.Post).filter(models.Post.id == id).first()
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
