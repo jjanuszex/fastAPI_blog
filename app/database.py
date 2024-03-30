@@ -25,3 +25,25 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+# we don't need that below code now, use sqlalchemy instead
+
+
+# import psycopg2
+# from psycopg2.extras import RealDictCursor
+# import time
+# while True:
+#     try:
+#         conn = psycopg2.connect(
+#             host="localhost",
+#             database="fastapi",
+#             user="postgres",
+#             password="postgres",
+#             cursor_factory=RealDictCursor)
+#         cursor = conn.cursor()
+#         print("Connected to the database!!!")
+#         break
+#     except (Exception, psycopg2.Error) as error:
+#         print("Error while connecting to PostgreSQL", error)
+#         time.sleep(5)

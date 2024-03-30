@@ -258,7 +258,9 @@ Link references:
 26. All auth code
 27. Add foreign key, create relation between two tables, create column owner_id in post
 
+Here I should add more docs
 
+28. Query Parameters, search something in url etc [lets fill it later]
 
 
 Tools:
