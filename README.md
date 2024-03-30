@@ -278,3 +278,4 @@ Definitions:
 - ORM - Object Reliational Mapper - sits between database and us 
 - DBMS - sits between app and database
 
+29. Local env variables, we have to set it up
