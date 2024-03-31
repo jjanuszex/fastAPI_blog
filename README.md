@@ -279,3 +279,8 @@ Definitions:
 - DBMS - sits between app and database
 
 29. Local env variables, we have to set it up
+30. Vote systems
+
+    we have to create new table to keep votes info
+
+    composite keys = this will ensure no user can like post twice
