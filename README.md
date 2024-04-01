@@ -262,6 +262,31 @@ Here I should add more docs
 
 28. Query Parameters, search something in url etc [lets fill it later]
 
+29. Local env variables, we have to set it up
+30. Vote systems, create route, table, schema
+
+    we have to create new table to keep votes info
+
+    composite keys = this will ensure no user can like post twice
+
+31. Join statements
+    learn this https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/
+
+    ```sql
+    select * from posts LEFT JOIN users ON posts.owner_id = users.id;
+    select posts.* from posts LEFT JOIN users ON posts.owner_id = users.id;
+    select users.email, users.id, COUNT(*) from posts LEFT JOIN users ON posts.owner_id = users.id GROUP BY users.id; # count how many posts were created by user
+    select users.email, users.id, COUNT(*) from posts RIGHT JOIN users ON posts.owner_id = users.id GROUP BY users.id;
+    select users.email, users.id, COUNT(posts.id) AS user_posts_count from posts RIGHT JOIN users ON posts.owner_id = users.id GROUP BY users.id; # this is the best
+    ```
+
+32. preety complex lesson - joins in sql alchemy, I created below query 
+
+    ```python
+        results = db.query(models.Post, func.count(models.Vote.post_id).label("votes")).join(models.Vote,
+     models.Vote.post_id == models.Post.id, isouter=True).group_by(models.Post.id).all()
+    ```
+    I head to also add new response model in schema.py, everything in commit
 
 Tools:
 - Postman
@@ -277,10 +302,3 @@ Definitions:
 - Pydantic
 - ORM - Object Reliational Mapper - sits between database and us 
 - DBMS - sits between app and database
-
-29. Local env variables, we have to set it up
-30. Vote systems
-
-    we have to create new table to keep votes info
-
-    composite keys = this will ensure no user can like post twice
