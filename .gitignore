@@ -1,5 +1,3 @@
 __pycache__
 venv_blog/
 .env
-alembic.ini
-alembic/
