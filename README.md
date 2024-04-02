@@ -288,12 +288,15 @@ Here I should add more docs
     ```
     I head to also add new response model in schema.py, everything in commit
 
+33. Alembic -migrations database tool, we can create, modify tables
+
+
 Tools:
 - Postman
 - Pydantic
 - psycopg2 - connection between postgress and fastapi
 - sqlalchemy - python ORM
-- alembic - not used in this project, for migration in databases
+- alembic - for migration in databases
 - JWT Token
 
 
