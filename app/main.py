@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 #  this created table in the database
-#models.Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine)
 
 origins = ["*"]
 
@@ -28,4 +28,4 @@ app.include_router(vote.router)
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World12"}
+    return {"Hello": "ser"}
