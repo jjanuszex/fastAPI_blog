@@ -290,6 +290,11 @@ Here I should add more docs
 
 33. Alembic -migrations database tool, we can create, modify tables
 
+34. CORS - Cross Origin Resource Sharing 
+
+    allows you to make request from a web browser on one domain to server on a diff domain
+
+
 
 Tools:
 - Postman
