@@ -1,10 +1,16 @@
-FROM python:3.12.2
+FROM python:3.12.2-slim
 
 # Set the working directory
 
 WORKDIR /usr/src/app
 
+
+# Install PostgreSQL development packages
+
+RUN apt-get update && apt-get install -y libpq-dev gcc
+
 # Copy the current directory contents into the container at /app
+
 
 COPY requirements.txt ./
 
