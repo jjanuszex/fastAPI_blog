@@ -295,6 +295,10 @@ Here I should add more docs
     allows you to make request from a web browser on one domain to server on a diff domain
 
 
+35. Deployment with docker
+
+
+
 
 Tools:
 - Postman
@@ -303,6 +307,8 @@ Tools:
 - sqlalchemy - python ORM
 - alembic - for migration in databases
 - JWT Token
+- docker
+- docker compose
 
 
 Definitions:
@@ -310,3 +316,4 @@ Definitions:
 - Pydantic
 - ORM - Object Reliational Mapper - sits between database and us 
 - DBMS - sits between app and database
+- CORS - Cross Origin Resource Sharing
