@@ -15,27 +15,27 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-def override_get_db():
+@pytest.fixture
+def session():
+    Base.metadata.drop_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
     db = TestingSessionLocal()
     try:
         yield db
     finally:
         db.close()
 
-app.dependency_overrides[get_db] = override_get_db
 
 @pytest.fixture
-def client():
-    # run our code before we start testing
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
+def client(session):
+    def override_get_db():        
+        try:
+            yield session
+        finally:
+            session.close()
+    app.dependency_overrides[get_db] = override_get_db
     yield  TestClient(app)
-    # run our code after we finish testing
-    
-    # we can also use alembic instead
-    # from alembic import command
-    # command.upgrade("head")
-    # command.downgrade("base")
+
 
 
 def test_root(client):
